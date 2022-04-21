@@ -740,6 +740,9 @@ abstemious	a#bst'i:mi@s
 abstract	abstrakt      $only
 abstract	a#bstr'akt    $verb
 abuse		a#bju:z       $verb
+abuse       a#bju:s       $noun
+abuses      a#bju:z@z     $verb
+abuses      a#bju:s@z     $noun
 academe		a#kad@mi
 acapela		aka#p'El@
 access		aksEs
@@ -762,6 +765,7 @@ adaptation	adapt'eIS@n
 adblock		$1
 add		ad
 addict		adIkt         $onlys
+addict      a#d'Ikt       $verb
 addon		ad0n
 adher		adh'i@3
 adieu		a#dju:
@@ -784,6 +788,8 @@ advertiser	adv3taIz3
 advertize	adv3taIz
 advertisement	a#dv3:tIsm@nt
 ?3 advertisement  $3
+advocate    a#dv@k@t     $noun
+advocate    a#d@keIt     $verb
 adware		'adw,e@
 adze		adz
 aegis		i:dZIs
@@ -792,6 +798,10 @@ aerogel		e@roUdZEl
 ?3 aesthetic	EsT'EtIk
 aether		i:T@
 afar		a#fA@
+affect      a#f'Ekt     $verb
+affect      'afEkt      $noun
+affiliate   a#f'Ili@t   $noun
+affiliate   a#f'IlieIt  $verb
 affirmation	af3m'eIS@n
 affidavit	afId'eIvIt
 afflux		a#flVks
@@ -799,7 +809,10 @@ aforemention	$2
 again		a#gEn
 agape		a#geIp
 agar		eIgA@
-aged		eIdZd
+aged		eIdZd       $past
+aged        eIdZI2#d
+aggregate   'agr@g@t    $noun
+aggregate   'agrIgeIt   $verb
 aghast		a#gaast
 agin		a#gIn
 agog		a#g0g
@@ -884,6 +897,8 @@ anchovy		antSoUvi
 anemone		a#nEm@ni
 anemometer	anI#m'0mI2t3
 anesthetize	$alt3
+animate     'anImeIt    $verb
+animate     'anIm@t
 antacid		$2
 anew		a#nju:
 ?3 anew		a#nu:
@@ -973,12 +988,16 @@ asbestos	asb'Est@s
 asparagus	a#spar@g@s
 arsenal		A@s@n@L
 arsenic		A@snIk
+articulate  A@'tIcj@l@t
+articulate  A@'tIcj@leIt    $verb
 ascertain	as3t'eIn
 asiatic		eIZI'atIk
 askance		a#skaans
 askew		a#skju:
 ass		as
 assess		a#sEs
+associate   a'soUsi@t
+associate   a'soUsieIt      $verb
 astray		$alt3
 astride		$alt3
 asus		eIs@s
@@ -998,7 +1017,8 @@ aubergine	oUb3Zi:n
 audi		aUdi
 auger		O:g3
 augmentation O:gmEnt'eIS@n
-august		O:g@st
+august		'O:g@st     $noun
+august      O:'gVst
 augustan	$alt2 $2
 aussie		0zi
 ?3 aussie	0si
@@ -1117,6 +1137,8 @@ blase		blA:z'eI
 blasé		blA:z'eI
 blech		blEx
 bleh		blEh
+blessed     blEst   $verb $past
+blessed     blEs@d
 blockade	bl0k'eId
 bloodrage	$alt1
 blouse		blaUz
@@ -1408,6 +1430,8 @@ colosseum	k0l@s'i@m
 comanche	k@mantSi
 combat		k0mbat       // combating
 ?3 combative	k@mbatIv
+combine     k@m'baIn    $verb
+combine     'k0mbaIn    $noun
 combo		k0mboU
 comely		kVmlI    // comeliness
 comeuppance	kVm'Vp@ns
@@ -1465,6 +1489,7 @@ conquistador	k0nk'i:st@do@
 conscience	k0nS@ns
 conscript	$2 $verb
 console		k@nsoUl $verb
+console     'k0nsoUl $noun
 consort		$1
 consort		$verb
 construct	$1     $onlys
@@ -1500,6 +1525,7 @@ convolute	k0nv@l'u:t
 coop		ku:p
 cooper		ku:p3
 coordinate	koU'O@dI2neIt   $verb
+coordinate  'koUO@d@n@t     $noun
 copier		k0pi@3
 copilot		koUpaIl@t
 coral		k0r@L
@@ -1512,6 +1538,8 @@ corporal	kO@pr@L
 corporate	$alt2
 corps		kO@           $only
 corral		k@r'al
+correlate   'k0rIleIt   $verb
+correlate   'k@r@l@t    $noun
 corrugate	k0r@geIt
 corsage		kO@s'A:Z
 cosmos		k0zm0s
@@ -1530,6 +1558,7 @@ courtesan	ko@tI#z@n
 couture		ku:t'U@
 covert		koUv'3:t
 covetous	kVv@t@s
+covid       'koUvId
 coworker	koUw3:k3
 coyote		kaI'oUti
 creature	kri:tS3
@@ -1607,6 +1636,7 @@ deice		di:'aIs
 deity		deI@ti
 ?3 deity	di:@t2i
 deja		deIZA:        $only
+delegate    $alt2 $noun
 deli		dElI
 deliberate	$alt2
 deliberate	$verb
@@ -1668,6 +1698,8 @@ dielectric	daI@l'EktrIk
 diesel		di:z@L
 dieu		dj@
 ?3 dilate	$1
+diffuse     dI'fjuz     $verb
+diffuse     dI'fjus     $noun
 dilatory	dIl@t@ri
 ?3 dilatory	dIlato@ri
 dilemma		daIl'Em@
@@ -1681,6 +1713,8 @@ dinosaur	daIn@sO@
 diode		daIoUd
 diplomacy	dIpl'oUm@si
 dipole		daIpoUl
+discharge   'dIstSA@dZ  $noun
+discharge   d@s'tSA@dZ  $verb
 disconsolate	dIsk'0ns@l@t 
 disc		dIsk          // for discs
 disciple	dIs'aIp@L
@@ -1701,6 +1735,8 @@ divan		dI#van
 doable		du:@b@L
 doctrine	d0ktrI2n
 doctrinal	$alt1
+document    'd0kjum@nt  $noun
+document    d0kjumEnt   $verb
 dogged		d0gI2#d	// adjective
 dogmatic	d0gm'atIk
 dogsled		$alt1
@@ -1723,6 +1759,8 @@ drawer		drO@
 dreamt		drEmpt
 drier		draI3
 driest		draI|@st
+duplicate   'du:plik@t      $noun
+duplicate   'du:plikeIt     $verb
 duet		dju:'Et
 dugout		dVgaUt
 dumber		dVm3
@@ -1850,6 +1888,8 @@ evit		EvI#t          // inevitable
 exactement	Egzakt@m'A~
 exalt		Egz'0lt
 exculpate	$1
+excuse      Ekskj'u:s       $noun
+excuse      Ekskj'u:z       $verb
 excuses		Ekskj'u:sI#z
 execute		EksI#kju:t      // not $2
 executable	$3
@@ -1959,7 +1999,10 @@ freelance	fri:laans
 freer		fri:3
 freest		fri:@st
 freon		fri:0n
+fragment    'fragm@nt   $noun
+fragment    frag'mEnt   $verb
 fraiche		frES
+frequent    fr@'kwEnt  $verb
 fricassee	frIka#seI
 frigate		$alt2
 fringer		frIndZ3	// infringer
@@ -2202,6 +2245,7 @@ imagine		I2madZI2n
 imbecile	ImbI#si:l
 ?3 imbecile	Imb@s@L
 immolate	$1
+impact      Imp'akt     $verb
 impedance	Imp'i:d@ns
 imperative	Imp'Er@tIv
 imperfect	Imp'3:fEkt
@@ -2211,6 +2255,7 @@ impinging	Imp'IndZIN
 impish		$1
 implacable	Impl'ak@b@L
 implant		$2 $verb
+import      Im'pO:t     $verb
 imprecise	ImprIs'aIs
 inanimate	$alt2
 inappropriate	Ina#pr'oUpri@t
@@ -2239,6 +2284,8 @@ infomercial	InfoUm'3:S@L
 infrastructure	$1 
 ingenuity	IndZI#n'ju:I2ti
 inherit		Inh'ErIt	// inherited
+initiate    In'ISi:@t   $noun
+initiate    In'ISi:eIt  $verb
 innard		In3d
 inner		In3
 innervate	In3:veIt
@@ -2282,6 +2329,7 @@ interval	Int3v@L
 interven	Int3v'i:n	// for intervening
 intravenous	Intr@v'i:n@s
 intray		IntreI
+intrigue    In'tri:g    $verb
 intro		$1
 ?3 investigative Inv,EstI#g'eItIv
 ipad		$alt6
@@ -2294,6 +2342,7 @@ iron		aI3n
 isochronous	aIs'0kr@n@s
 isosceles	aIs'0s@li:z
 ?3 issuance	ISu:@ns
+invalid     'Inv@lId    $noun
 invalidity	I2nv@lIdI#ti
 
 jackrabbit	dZ'akr,abIt
@@ -2361,6 +2410,7 @@ lascivious	$alt3
 lager		lA:g3
 lagoon		$alt3
 laity		leI@ti
+laminate    'lamIn@t    $noun
 lapel		$alt3
 las		,las $only
 ?3 las		,lA:s $only
@@ -2378,6 +2428,7 @@ laundress	$alt2
 lava		lA:v@
 lavender	lav@nd3
 le		l@_|            $only
+lead        lEd         $noun $past
 lead		li:d
 leafy		li:fi
 (lean-to)	li:n||tu:
@@ -2587,6 +2638,8 @@ missed		mIst
 misses		mIsI2z
 misted		mIstI#d
 mister		mIst3
+misuse      mIs'ju:s    $noun
+misuse      mIs'ju:z    $verb
 mitre		maIt3
 mixer		mIks3
 moccasin	m0k@sI2n
@@ -2620,6 +2673,7 @@ morose		m@r'oUs
 motel		moUt'El
 motif		moUt'i:f
 moustache	m@st'aaS
+mouth       maUD          $verb
 mouths		maUDz         $only
 mouthwater	m'aUTw,O:t3  // ing
 movies		mu:vIz
@@ -2953,6 +3007,7 @@ posse		p0si
 postage		poUstI2dZ
 postdate	$2
 potemkin	poUt'EmkIn
+postulate   'pOstj@leIt     $noun
 practise	praktI2s
 prayer		pre@
 precedence	prEsI#d@ns
@@ -3141,6 +3196,8 @@ rein		reIn
 reined		reInd
 reining		reInIN
 reindeer	reIndi@3
+reject      r@'dZEkt
+reject      'ri:dZEkt   $noun
 rekey		r,i:k'i:
 relay		ri:leI
 relic		rElIk
@@ -3188,6 +3245,7 @@ restaurant	rEstr0nt
 restful		rEstf@L
 restoration	rEst@r'eIS@n
 résumé		rEzu:meI
+resume      rEzu:meI    $noun
 retina		rEtIn@
 retrial		ri:traI@l
 retrospect	rEtr@spEkt
@@ -3517,6 +3575,8 @@ swath		sw0T
 syllabi		sIl@baI
 symbol		sImb@L
 sync		sINk
+syndicate   'sInd@k@t   $noun
+syndicate   'sIndIkeIt  $verb
 syntax		sInt2aks
 syphilis	sIf@lI2s
 syphon		$alt2
@@ -3627,6 +3687,7 @@ toupee		tu:peI
 transcript	$1 $onlys
 transfer	$1 $onlys
 transfer	$verb
+transform   'transfOm   $noun
 transport	transpo@t     $only
 transport	$verb
 transports	transpo@t|s    $nounf
