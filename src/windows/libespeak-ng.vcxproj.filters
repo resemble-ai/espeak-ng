@@ -90,6 +90,9 @@
     <ClCompile Include="..\libespeak-ng\klatt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\libespeak-ng\langopts.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\libespeak-ng\mbrowrap.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -153,6 +156,12 @@
     <ClCompile Include="..\libespeak-ng\soundicon.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\libespeak-ng\translateword.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libespeak-ng\common.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -191,6 +200,9 @@
     <ClInclude Include="..\libespeak-ng\klatt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\libespeak-ng\langopts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\libespeak-ng\mbrowrap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -207,6 +219,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\libespeak-ng\soundicon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libespeak-ng\translateword.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libespeak-ng\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

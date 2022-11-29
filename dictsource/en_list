@@ -513,6 +513,7 @@ ac	$abbrev
 acsi	$abbrev
 adf	$abbrev
 adhd	$abbrev
+ado $abbrev $allcaps
 adsl	$abbrev
 ae	$abbrev
 aes	$abbrev
@@ -560,6 +561,7 @@ echr	$abbrev
 edst	$abbrev
 edt	$abbrev
 eff	$abbrev
+efi	$abbrev
 eg	fO@Egz'aamp@L	$only
 eg	$abbrev $allcaps
 (e . g .) fO@Egz'aamp@L
@@ -664,6 +666,7 @@ ucl	$abbrev
 ucs	$abbrev
 udp	$abbrev
 ueb	$abbrev
+uefi	$abbrev
 ufo	$abbrev
 ui	$abbrev
 uk	$abbrev
@@ -823,6 +826,7 @@ aha		A:h'A:
 ahem		@h'@m
 ahoy		a#hOI
 aidenn		eId@n
+aira 'aIr@ $only
 airbus		e@bVs
 airpower	'e@p,aU3
 aisle		aI@l
@@ -1091,6 +1095,7 @@ beautiful   b'ju:tIf@l
 bedouin		bEdu:I2n
 beige		beIZ
 belisha		b@l'i:S@
+bellevue        b'Elvju: $only
 bellyaching	bElIeIkIN
 bely		bI#laI
 bereft		bI#rEft
@@ -1130,6 +1135,7 @@ bison		baIs@n
 bitable		baIt@b@L
 bitecha		baItS@
 ?!3 bitumen	bItSu:m@n
+bitwarden b'ItwO@d@n
 bizarre		bI#z'A@
 bizzare		bI#z'A@
 blanc		blA~nk
@@ -1151,6 +1157,7 @@ blurry		bl3:ri
 boardmember	$1
 bobsled		$alt1
 boing		bOIN
+boise	'bOIsi	$only
 bologna		b@loUni
 bolognese	b0l@n'eIz
 bombard		$2
@@ -1164,6 +1171,7 @@ boogey		boogie $text
 boomeranged	bu:m3aNd
 borealis	bo@rI'alIs
 bosun		boUs@n
+bothell         b'0T@L $only
 bourguignonne	bU@gIn'j0n
 boutique	bu:t'i:k
 boutonniere	bu:?n'i@3
@@ -2344,6 +2352,7 @@ irises		aIrIsI#z
 iron		aI3n
 isochronous	aIs'0kr@n@s
 isosceles	aIs'0s@li:z
+issaquah 'Is@kwA:
 ?3 issuance	ISu:@ns
 invalid     'Inv@lId    $noun
 invalidity	I2nv@lIdI#ti
@@ -2398,6 +2407,8 @@ kopje		k0pi
 koran		kO@r'A:n
 kosher		koUS3
 kowtow		kaUt2aU
+kubernetes ,ku:b3'nEti:z
+kusto 'ku:stoU $only
 
 la		,la           $only
 la		$abbrev $allcaps
@@ -2699,6 +2710,7 @@ naif		naI'i:f
 naïve		naI'i:v
 naivete		naI'i:v@teI
 naked		neIkI2#d	// adjective
+nanaimo n@'naImoU $only
 narrative	nar@tIv
 ?3 narrator	nareIt3
 nasa		nasa#
@@ -3090,6 +3102,7 @@ psychosis	saIk'oUsIs
 psychotic	saIk'0tIk
 pud		pUd           // and pudding
 pueblo		pwEbloU
+puget pju:dZIt
 punative	pju:n@tIv
 puny		pju:ni
 purist		pjU@Ist
@@ -3317,6 +3330,7 @@ saliva		s@laIv@
 salmon		sam@n
 ?3 salon	$alt3
 saloon		$alt3
+sammamish s@'m'amIS
 san		,san $only
 sanguine	$alt2
 santoor		$alt3
@@ -3346,6 +3360,7 @@ scenario	s@nA@rioU
 scepter		sEpt3
 sceptre		sEpt3
 ?3 schematic	sk@matIk
+schengen 'SEN@n
 schist		SIst
 sci		saI
 sciatica	saI'atIk@
@@ -3464,6 +3479,7 @@ slough		slVf	$verb
 slugabed	slVg@bEd
 snafu		snafu:
 snafus		snafu:z
+snohomish snoU'hoUmIS
 snooker		snu:k3
 sociopath	soUsI@paT
 sofa		soUf@
@@ -3906,6 +3922,7 @@ wholehearted	$2
 wicked		wIkI2#d	// adjective
 width		wItT
 wilderness	wIld3n@s
+willamette wI'lamIt $only
 wifi		waIfaI
 winding		waIndIN       // verb
 wind		waInd         $verb
@@ -5747,5 +5764,3 @@ sterile		$alt2
 tensile		$alt2
 virile		$alt2
 ?3 volatile	v0la#t@L
-
-

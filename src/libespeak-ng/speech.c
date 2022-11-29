@@ -49,28 +49,30 @@
 #include <espeak-ng/encoding.h>
 
 #include "speech.h"
+#include "common.h"               // for GetFileLength
 #include "dictionary.h"           // for GetTranslatedPhonemeString, strncpy0
 #include "espeak_command.h"       // for delete_espeak_command, SetParameter
 #include "event.h"                // for event_declare, event_clear_all, eve...
 #include "fifo.h"                 // for fifo_add_command, fifo_add_commands
+#include "langopts.h"             // for LoadConfig
 #include "mbrola.h"               // for mbrola_delay
 #include "readclause.h"           // for PARAM_STACK, param_stack
-#include "synthdata.h"            // for FreePhData, LoadConfig, LoadPhData
+#include "synthdata.h"            // for FreePhData, LoadPhData
 #include "synthesize.h"           // for SpeakNextClause, Generate, Synthesi...
 #include "translate.h"            // for p_decoder, InitText, translator
 #include "voice.h"                // for FreeVoiceList, VoiceReset, current_...
 #include "wavegen.h"              // for WavegenFill, WavegenInit, WcmdqUsed
 
-unsigned char *outbuf = NULL;
-int outbuf_size = 0;
-unsigned char *out_start;
+static unsigned char *outbuf = NULL;
+static int outbuf_size = 0;
+static unsigned char *out_start;
 
 espeak_EVENT *event_list = NULL;
-int event_list_ix = 0;
-int n_event_list;
-long count_samples;
+static int event_list_ix = 0;
+static int n_event_list;
+static long count_samples;
 #ifdef HAVE_PCAUDIOLIB_AUDIO_H
-struct audio_object *my_audio = NULL;
+static struct audio_object *my_audio = NULL;
 #endif
 
 static unsigned int my_unique_identifier = 0;
@@ -81,9 +83,7 @@ static int voice_samplerate = 22050;
 static int min_buffer_length = 60; // minimum buffer length in ms
 static espeak_ng_STATUS err = ENS_OK;
 
-t_espeak_callback *synth_callback = NULL;
-int (*uri_callback)(int, const char *, const char *) = NULL;
-int (*phoneme_callback)(const char *) = NULL;
+static t_espeak_callback *synth_callback = NULL;
 
 char path_home[N_PATH_HOME]; // this is the espeak-ng-data directory
 extern int saved_parameters[N_SPEECH_PARAM]; // Parameters saved on synthesis start
@@ -272,7 +272,7 @@ ESPEAK_NG_API espeak_ng_STATUS espeak_ng_InitializeOutput(espeak_ng_OUTPUT_MODE 
 	out_samplerate = 0;
 
 #ifdef HAVE_PCAUDIOLIB_AUDIO_H
-	if (my_audio == NULL)
+	if (((my_mode & ENOUTPUT_MODE_SPEAK_AUDIO) == ENOUTPUT_MODE_SPEAK_AUDIO) && (my_audio == NULL))
 		my_audio = create_audio_device_object(device, "eSpeak", "Text-to-Speech");
 #endif
 
@@ -302,18 +302,6 @@ ESPEAK_NG_API espeak_ng_STATUS espeak_ng_InitializeOutput(espeak_ng_OUTPUT_MODE 
 	return ENS_OK;
 }
 
-int GetFileLength(const char *filename)
-{
-	struct stat statbuf;
-
-	if (stat(filename, &statbuf) != 0)
-		return -errno;
-
-	if (S_ISDIR(statbuf.st_mode))
-		return -EISDIR;
-
-	return statbuf.st_size;
-}
 
 ESPEAK_NG_API void espeak_ng_InitializePath(const char *path)
 {
@@ -391,7 +379,8 @@ ESPEAK_NG_API espeak_ng_STATUS espeak_ng_Initialize(espeak_ng_ERROR_CONTEXT *con
 	WavegenInit(srate, 0);
 	LoadConfig();
 
-	memset(&current_voice_selected, 0, sizeof(current_voice_selected));
+	espeak_VOICE *current_voice_selected = espeak_GetCurrentVoice();
+	memset(current_voice_selected, 0, sizeof(espeak_VOICE));
 	SetVoiceStack(NULL, "");
 	SynthesizeInit();
 	InitNamedata();
@@ -414,6 +403,20 @@ ESPEAK_NG_API espeak_ng_STATUS espeak_ng_Initialize(espeak_ng_ERROR_CONTEXT *con
 	option_phonemes = 0;
 	option_phoneme_events = 0;
 
+	// Seed random generator
+	espeak_srand(time(NULL));
+
+	return ENS_OK;
+}
+
+ESPEAK_NG_API espeak_ng_STATUS espeak_ng_SetPhonemeEvents(int enable, int ipa) {
+	option_phoneme_events = 0;
+	if (enable) {
+		option_phoneme_events |= espeakINITIALIZE_PHONEME_EVENTS;
+		if (ipa) {
+			option_phoneme_events |= espeakINITIALIZE_PHONEME_IPA;
+		}
+	}
 	return ENS_OK;
 }
 
@@ -647,16 +650,6 @@ ESPEAK_API void espeak_SetSynthCallback(t_espeak_callback *SynthCallback)
 #ifdef USE_ASYNC
 	event_set_callback(synth_callback);
 #endif
-}
-
-ESPEAK_API void espeak_SetUriCallback(int (*UriCallback)(int, const char *, const char *))
-{
-	uri_callback = UriCallback;
-}
-
-ESPEAK_API void espeak_SetPhonemeCallback(int (*PhonemeCallback)(const char *))
-{
-	phoneme_callback = PhonemeCallback;
 }
 
 ESPEAK_NG_API espeak_ng_STATUS
@@ -952,10 +945,12 @@ ESPEAK_NG_API espeak_ng_STATUS espeak_ng_Terminate(void)
 		p_decoder = NULL;
 	}
 
+	WavegenFini();
+
 	return ENS_OK;
 }
 
-const char *version_string = PACKAGE_VERSION;
+static const char version_string[] = PACKAGE_VERSION;
 ESPEAK_API const char *espeak_Info(const char **ptr)
 {
 	if (ptr != NULL)

@@ -67,6 +67,8 @@ static const char *help_text =
     "\t   lines less than this length as end-of-clause\n"
     "-p <integer>\n"
     "\t   Pitch adjustment, 0 to 99, default is 50\n"
+    "-P <integer>\n"
+    "\t   Pitch range adjustment, 0 to 99, default is 50\n"
     "-s <integer>\n"
     "\t   Speed in approximate words per minute. The default is 175\n"
     "-v <voice name>\n"
@@ -79,6 +81,7 @@ static const char *help_text =
     "-x\t   Write phoneme mnemonics to stdout\n"
     "-X\t   Write phonemes mnemonics and translation trace to stdout\n"
     "-z\t   No final sentence pause at the end of the text\n"
+    "-D\t   Enable deterministic random mode\n"
     "--compile=<voice name>\n"
     "\t   Compile pronunciation rules and dictionary from the current\n"
     "\t   directory. <voice name> specifies the language\n"
@@ -143,7 +146,7 @@ static void DisplayVoices(FILE *f_out, char *language)
 	const espeak_VOICE **voices;
 	espeak_VOICE voice_select;
 
-	static char genders[4] = { '-', 'M', 'F', '-' };
+	static const char genders[4] = { '-', 'M', 'F', '-' };
 
 	if ((language != NULL) && (language[0] != 0)) {
 		// display only voices for the specified language, in order of priority
@@ -201,7 +204,7 @@ static void Write4Bytes(FILE *f, int value)
 
 static int OpenWavFile(char *path, int rate)
 {
-	static unsigned char wave_hdr[44] = {
+	static const unsigned char wave_hdr[44] = {
 		'R', 'I', 'F', 'F', 0x24, 0xf0, 0xff, 0x7f, 'W', 'A', 'V', 'E', 'f', 'm', 't', ' ',
 		0x10, 0, 0, 0, 1, 0, 1, 0,  9, 0x3d, 0, 0, 0x12, 0x7a, 0, 0,
 		2, 0, 0x10, 0, 'd', 'a', 't', 'a',  0x00, 0xf0, 0xff, 0x7f
@@ -304,7 +307,7 @@ static void PrintVersion()
 
 int main(int argc, char **argv)
 {
-	static struct option long_options[] = {
+	static const struct option long_options[] = {
 		{ "help",    no_argument,       0, 'h' },
 		{ "stdin",   no_argument,       0, 0x100 },
 		{ "compile-debug", optional_argument, 0, 0x101 },
@@ -346,6 +349,7 @@ int main(int argc, char **argv)
 	int volume = -1;
 	int speed = -1;
 	int pitch = -1;
+	int pitch_range = -1;
 	int wordgap = -1;
 	int option_capitals = -1;
 	int option_punctuation = -1;
@@ -353,6 +357,7 @@ int main(int argc, char **argv)
 	int phoneme_options = 0;
 	int option_linelength = 0;
 	int option_waveout = 0;
+	bool deterministic = 0;
 	
 	espeak_VOICE voice_select;
 	char filename[200];
@@ -368,7 +373,7 @@ int main(int argc, char **argv)
 	option_punctlist[0] = 0;
 
 	while (true) {
-		c = getopt_long(argc, argv, "a:b:d:f:g:hk:l:mp:qs:v:w:xXz",
+		c = getopt_long(argc, argv, "a:b:Dd:f:g:hk:l:mp:P:qs:v:w:xXz",
 		                long_options, &option_index);
 
 		// Detect the end of the options.
@@ -387,6 +392,9 @@ int main(int argc, char **argv)
 			break;
 		case 'd':
 			strncpy0(devicename, optarg2, sizeof(devicename));
+			break;
+		case 'D':
+			deterministic = 1;
 			break;
 		case 'h':
 			printf("\n");
@@ -407,6 +415,9 @@ int main(int argc, char **argv)
 			break;
 		case 'p':
 			pitch = atoi(optarg2);
+			break;
+		case 'P':
+			pitch_range = atoi(optarg2);
 			break;
 		case 'q':
 			quiet = true;
@@ -583,6 +594,11 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
+	if (deterministic) {
+		// Set random generator state to well-known
+		espeak_ng_SetRandSeed(1);
+	}
+
 	if (option_waveout || quiet) {
 		// writing to a file (or no output), we can use synchronous mode
 		result = espeak_ng_InitializeOutput(ENOUTPUT_MODE_SYNCHRONOUS, 0, devicename[0] ? devicename : NULL);
@@ -645,6 +661,8 @@ int main(int argc, char **argv)
 		espeak_SetParameter(espeakVOLUME, volume, 0);
 	if (pitch >= 0)
 		espeak_SetParameter(espeakPITCH, pitch, 0);
+	if (pitch_range >= 0)
+		espeak_SetParameter(espeakRANGE, pitch_range, 0);
 	if (option_capitals >= 0)
 		espeak_SetParameter(espeakCAPITALS, option_capitals, 0);
 	if (option_punctuation >= 0)

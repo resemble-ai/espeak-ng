@@ -19,6 +19,7 @@ SPEECHPLAYER_SRC_FILES := \
 LOCAL_SRC_FILES += $(SPEECHPLAYER_SRC_FILES)
 
 ESPEAK_SOURCES := \
+  src/libespeak-ng/common.c \
   src/libespeak-ng/compiledata.c \
   src/libespeak-ng/compiledict.c \
   src/libespeak-ng/compilembrola.c \
@@ -29,6 +30,7 @@ ESPEAK_SOURCES := \
   src/libespeak-ng/ieee80.c \
   src/libespeak-ng/intonation.c \
   src/libespeak-ng/klatt.c \
+  src/libespeak-ng/langopts.c \
   src/libespeak-ng/mnemonics.c \
   src/libespeak-ng/numbers.c \
   src/libespeak-ng/phoneme.c \
@@ -44,6 +46,7 @@ ESPEAK_SOURCES := \
   src/libespeak-ng/synthesize.c \
   src/libespeak-ng/synth_mbrola.c \
   src/libespeak-ng/translate.c \
+  src/libespeak-ng/translateword.c \
   src/libespeak-ng/tr_languages.c \
   src/libespeak-ng/voices.c \
   src/libespeak-ng/wavegen.c
@@ -52,7 +55,7 @@ ESPEAK_SRC_PATH  := ../../src
 ESPEAK_SRC_FILES := \
   $(subst src/,$(ESPEAK_SRC_PATH)/,$(ESPEAK_SOURCES))
 
-LOCAL_CFLAGS    += -DINCLUDE_KLATT -DINCLUDE_SPEECHPLAYER -DINCLUDE_SONIC
+LOCAL_CFLAGS    += -DINCLUDE_KLATT -DINCLUDE_SPEECHPLAYER -DINCLUDE_SONIC -DHAVE_ENDIAN_H
 LOCAL_SRC_FILES += \
   $(filter-out $(BLACKLIST_SRC_FILES),$(ESPEAK_SRC_FILES))
 
@@ -67,7 +70,8 @@ LOCAL_C_INCLUDES += \
   $(LOCAL_PATH)/include \
   $(LOCAL_PATH)/$(UCDTOOLS_SRC_PATH)/include \
   $(LOCAL_PATH)/../../src/speechPlayer/include \
-  $(LOCAL_PATH)/$(ESPEAK_SRC_PATH)/include
+  $(LOCAL_PATH)/$(ESPEAK_SRC_PATH)/include \
+  $(LOCAL_PATH)/$(ESPEAK_SRC_PATH)/include/compat
 
 LOCAL_LDLIBS := \
   -llog

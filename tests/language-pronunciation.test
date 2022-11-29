@@ -19,6 +19,36 @@ X'ihO~t,Or b'ibek 'a*u b'udd#i 'atS#e 'a*u X'ihO~t,e p'OrOXp,Or b#atr'itbO*,e 'a
 test_phon az "byts'yn insanL'aR l&jag'&t v& hygugLa*@n'a J'W*& az'ad b&*ab'&R do:uLuRL'aR
 ona*'@n Syu*aLR'@ v& vidZdanLa*'@ v'aR v& b'iRbiRl&*'in& mynasib'&td& gaRdaSL'@x Runhund'a davRanmaL@d@RL'aR" "Bütün insanlar ləyaqət və hüquqlarına görə azad bərabər doğulurlar. Onarın şüuralrı və vicdanları var və bir-birlərinə münasibətdə qardaşlıq runhunda davranmalıdırlar." "Latn"
 test_phon ba "m'in h'in 'uL b'eD h'eD 'uLAr b'VL t'eQe" "мин һин ул беҙ һеҙ улар был теге." "Cyrl"
+test_phon be "s.:'i\"tak 'ab;as.ts.ul;its; zr'Ob;is;s;a z.z.'arE pr'i\"jaz.dz.aw
+j'El;i zj'Em r'El;jEfnas;ts; m'ajE 'um;EjEts;E s;'OjE 'arx;ijErEj tak'OjE m;'az.ujE pr'i\"jEmna d'urEjE xv'al;ujE v'i\"prawl;ajE
+j'On z;v;arj'O m;il;j'On maj'Oj ij'Os;i salaw;'Ow maj'Oj idi\"j'OtskaQa z;m;aj'Oju
+b;'iz;n;Es Q'adz;ina s'utk;i; adn'Os;in s;m;'Erts;i; 'af;is.a z'ax;inaw
+dz.'ala dz;'ik m'Ora p'as;v;its:a 'abl;its.:a wzv'i\"s.s.a
+j'uras; 'adjutant s'al;juts:a v;'Edaju zd'Ol;Eju j'Oju p;'Ens;iju mn'Oju b;'Eluju p'ami\"ju 'idEju ap'Os.n;uju z;m;'aju
+j'akuju zj'av;iws;a Q'Etaja n;'Ejak j'ak;ija p'Ojas x'alujam d'i\"plamati\"ja 'idEja z'as;m;ajaws;a
+azn'Op bl'Ox s'at ks;'Onts Qr'ants. 'az.i\"jatas. 'ukas
+b'apka p;'inxpanQ;ist 'atxadz;its; dz.'Orts.tawn m;'is.ts.as v;'Es;ts;i
+'abdEjt 'abQrEjt tr'OQbak'Ovi\" b'uQQaltar tEQd'OQl;at tr'OQz.i\"l;ni\" tEQz'Ona
+bl'Ogbastar b'EgQrawnt an;Egd'Ot 'EgzEma s.madbak'Ovi\" 'ardQrupa b'Ordz.urnal s;p;irdzav'Ot
+zv'i\"z.bujni\" 'az.Qabat zvi\"z.d'OwQ;i zvi\"z.z.'Orstk;i zvi\"z.z'Orka 'ajz;b;Erx 'EkzQ;ib;itsi\"jan;istka p'atzdam Q'awz;z;istar k'az;ba
+l;'idz.ba z'al;dzbax s;p;'EdzQrupa n'adzdEm t'andzzala
+k;'En;ixz;b;Erx r'az;b;iwka 'az;v;arEla s;v;'Ez.a r'az;dz;El;Ena 'ab;Ez;z;am;El;Eni\" z;l;'iw
+s'upras;l;sk;i s;m;'Es.na z;m;'ilavats:a s;n;'Edats; z;n;'uxani\" 'as;p;Ekt r'as;s;El;ina v'us;ts;E z;m;'Ors;ts;is;a" \
+"сшытак абясчуліць зробішся зжарэ прыязджаў,
+елі з'ем рэльефнасць мае умееце сёе архіерэй такое мяжуе прыемна дурэе хвалюе выпраўляе,
+ён звяр'ё мільён маёй іёсі салаўёў маёй ідыёцкага змяёю,
+бізнес гадзіна суткі адносін смерці афіша захінаў,
+джала дзік мора пасвіцца аблічча ўзвышша,
+Юрась ад'ютант сальюцца ведаю здолею ёю пенсію мною белую памыю ідэю апошнюю змяю,
+якую з'явіўся гэтая неяк якія пояс халуям дыпламатыя ідэя засмяяўся,
+азноб блог сад ксёндз грандж ажыятаж указ,
+бабка пінгпангіст адхадзіць джорджтаўн міжчас везці,
+апдэйт апгрэйд трохбаковы бухгалтар тэхдогляд трохжыльны тэхзона,
+блокбастар бэкграўнд анекдот экзэма шматбаковы артгрупа бортжурнал спіртзавод,
+звышбуйны Ашгабат звышдоўгі звышжорсткі звышзорка айсберг эксгібіцыяністка Патсдам гаўсзістар касьба,
+лічба Зальцбах спецгрупа нацдэм танцзала,
+Кенігсберг разбіўка азвярэла свежа раздзелена абеззямелены зліў,
+супрасльскі смешна змілавацца снедаць знюханы аспект расселіна вусце змёрзціся" "Cyrl"
 test_phon bg "'ax tS'udna b@Lg'arska z'em;o
 pol'uSvaj ts@ft;'aSti: Z'ita" "Ах чудна българска земьо, полюшвай цъфтящи жита." "Cyrl"
 test_phon bn "m'alOS,ij 'Obojd#,O Sr'omik,Oder b'i*udd#,e tS'OlOm,an_:_: m'egat#r'i_:_: 'ob#idZ,ane Se d'eSe S'Oto S'Oto 'ob#ib,aSik,e 'at.Ok k'O*etS#,e Se d'eSer 'imigr,eSOn p'uliS
@@ -108,8 +138,8 @@ k,ep\\uko'ete
 w,eCimos'esuN\\" "イロハニホヘト. チリヌルヲ. ワカヨタレソ. ツネナラム. ウヰノオクヤマ. ケフコエテ. アサキユメミシ. ヱヒモセスン." "Kana"
 test_phon jbo "l,o R,o R'emna_! S,u s,e Z'inzi l,o k,a_! S,ehu z'ifRe_! Z,e l,o k,a S_!k,in@duns'ihu g,e l,o k,a_! S,ehu_! S,ehu s,e n,ilsels'inma_:_: g,i l,o k,a_! S,ehu_! S,ehu s,e kR'ali _!__;__'i R,a z'aNkaI l,o k,a s'uho d,a_! S,ehu m'enli_! Z,e l,o k,a s'uho d,a_! S,ehu m'aRde keI_:: _;_g'ihe b'ilga l,o k,a_! S,ehu_! S,ehu f'aRtRa s'uho Z,aI s,e t'asmi b,e l,o n,u R,a t,unb@s'ihu" "lo ro remna cu se jinzi lo ka ce'u zifre je lo ka ckinydunsi'u ge lo ka ce'u ce'u se nilselsinma gi lo ka ce'u ce'u se krali .i ra zankai lo ka su'o da ce'u menli je lo ka su'o da ce'u marde kei gi'e bilga lo ka ce'u ce'u fartra su'o jai se tasmi be lo nu ra tunbysi'u" "Latn"
 test_phon jbo "s'uho S'ilSe _!R'atat,aR_! S,u tolS'anSi _!__;__'i m,i Rivl'iha f'aha l,a _!S_!f,aRtsen'ek_!" "su'o cilce .RAtatar. cu tolcanci .i mi rivli'a fa'a la .cfartseNEK." "Latn"
-test_phon ky "bard'Iq adamd'ar 'Oz b,edelind'e dZan'a ,uquqtarInd'a erk'in dZan'a t'eN ,uquqt'u: bol'up dZaral'at
-alard'In 'aNs,ezim'i men'en ab,ijir'i b'ar dZan'a bir'ib,irin'e b'ir t,u:Gand'Iq mamil'e q,Ilu:G'a tij'iS" "Бардык адамдар өз беделинде жана укуктарында эркин жана тең укуктуу болуп жаралат. Алардын аң-сезими менен абийири бар жана бири-бирине бир туугандык мамиле кылууга тийиш." "Cyrl"
+test_phon ky "bard'Iq adamd'ar 'Oz b,edelind'e dZan,a ,uquqtarInd'a erk'in dZan,a t'eN ,uquqt'u: bol'up dZaral'at
+alard'In 'aNs,ezim'i men'en ab,ijir'i b'ar dZan,a bir'ib,irin'e b'ir t,u:Gand'Iq mamil'e q,Ilu:G'a tij'iS" "Бардык адамдар өз беделинде жана укуктарында эркин жана тең укуктуу болуп жаралат. Алардын аң-сезими менен абийири бар жана бири-бирине бир туугандык мамиле кылууга тийиш." "Cyrl"
 test_phon kl  "inu'itS; tam'armik in,uNN'orput nammin,E:rs,inn,a:ssusEq'arl#utsik ,assiQ,i:mm'il#u at,aqqinassusEq,arl#uts'il#u pis,inn,a:tsit,a:ffEq'arl#utsik
 silaq,assus'Ermik t,arn'il#u nal,uNN'issusianik pil'ErsuQ,a:p:ut
 ,imm,inn'ul#u ili,orfiQEqatsiQ,i:t:ariaqaralu'arput qat'aNNutsiQ,i:t:ut pEqatsiQ'i:nnErup an'Ers,a:vani" "Inuit tamarmik inunngorput nammineersinnaassuseqarlutik assigiimmillu ataqqinassuseqarlutillu pisinnaatitaaffeqarlutik. Silaqassusermik tarnillu nalunngissusianik pilersugaapput, imminnullu iliorfigeqatigiittariaqaraluarput qatanngutigiittut peqatigiinnerup anersaavani." "Latn"
@@ -211,7 +241,7 @@ h'ivjo jap'asa w,atende'ane _|kind'ugu" "Watu wote wamezaliwa huru, hadhi na hak
 test_phon ta "n'a:n k'Vn.n.a:d.i s'a:ppid.,Uve:n
 'adVna:l ;'enVkkU 'orU k'e:d.Um v'Vra:dU" "நான் கண்ணாடி சாப்பிடுவேன், அதனால் எனக்கு ஒரு கேடும் வராது." "Taml"
 test_phon te "n'e:nu g'a:Ju t'inag,alanu m'ariju 'ala: c'e:sina: n'a:ku 'e:mi 'ibbandi l'e:du" "నేను గాజు తినగలను మరియు అలా చేసినా నాకు ఏమి ఇబ్బంది లేదు" "Telu"
-test_phon tn "B'aTU B'oKl B'a ts'i:tswl B'a g,olUl,os-'igill_:_: ll g'o l,ekallk'ana k'a s-'iRiti_:_: ll d,itSwan'elU
+test_phon tn "B'aTU B'oKl B'a ts'i:tswl B'a g,olUl,os-ig'ill_:_: ll g'o l,ekallk'ana k'a s-iR'iti_:_: ll d,itSwan'elU
 B'a_| aB'etswl g'o_| ak'an^a_:_: ll _|m,aik'ul#U
 ,m-ml B'a tSwan'ets-i g'o d,iRll'ana k'a _|m'owa_! wa B,okaul'eNgwl" "Batho botlhe ba tsetswe ba gololosegile le go lekalekana ka seriti le ditshwanelo. Ba abetswe go akanya le maikutlo, mme ba tshwanetse go direlana ka mowa wa bokaulengwe." "Latn"
 test_phon tk "tYRkm'WntSW

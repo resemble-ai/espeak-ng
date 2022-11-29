@@ -23,6 +23,21 @@
 #include <endian.h>               // for BYTE_ORDER, BIG_ENDIAN
 #include <espeak-ng/espeak_ng.h>
 
+#if defined(__has_feature)
+#  if __has_feature(memory_sanitizer)
+#    include <sanitizer/msan_interface.h>
+#    define MAKE_MEM_UNDEFINED(addr, len) __msan_unpoison(addr, len)
+#  endif
+#endif
+
+#ifndef MAKE_MEM_UNDEFINED
+#  ifdef HAVE_VALGRIND_MEMCHECK_H
+#    include <valgrind/memcheck.h>
+#    define MAKE_MEM_UNDEFINED(addr, len) VALGRIND_MAKE_MEM_UNDEFINED(addr, len)
+#  else
+#    define MAKE_MEM_UNDEFINED(addr, len) ((void) ((void) addr, len))
+#  endif
+#endif
 
 #ifdef __cplusplus
 extern "C"
@@ -41,17 +56,21 @@ extern "C"
 
 #define PLATFORM_WINDOWS
 #define PATHSEP '\\'
-#define N_PATH_HOME  230
+#define N_PATH_HOME_DEF  230
 #define NO_VARIADIC_MACROS
 
 #else
 
 #define PLATFORM_POSIX
 #define PATHSEP  '/'
-#define N_PATH_HOME  160
+#define N_PATH_HOME_DEF  160
 #define USE_NANOSLEEP
 #define __cdecl
 
+#endif
+
+#ifndef N_PATH_HOME
+#define N_PATH_HOME N_PATH_HOME_DEF
 #endif
 
 // will look for espeak_data directory here, and also in user's home directory
@@ -62,8 +81,6 @@ extern "C"
 void cancel_audio(void);
 
 extern char path_home[N_PATH_HOME];    // this is the espeak-ng-data directory
-
-extern ESPEAK_NG_API int GetFileLength(const char *filename);
 
 #ifdef __cplusplus
 }

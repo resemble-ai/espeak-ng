@@ -9,6 +9,38 @@ The espeak-ng project is a fork of the espeak project.
 
 ### 1.52 (In Development)
 
+android:
+*  Added directBoot support -- beqabeqa473
+
+updated languages:
+*  ba (Bashkir) -- Andiv06
+*  be (Belarusian) -- Andiv06, bespsm, Alaksiej Stankievič
+*  cmn (Mandarin) -- Cameron Wong
+*  en (English) -- Bill Dengler
+*  es (Spanish) -- Sukil Etxenike
+*  fa (Persian) -- MH
+*  gn (Guarani) -- Andiv06
+*  he (Hebrew) -- Omer I.S, Andiv06
+*  it (Italian) -- Christian Leo Mameli
+*  ja (Japanese) -- Karl Eick
+*  kl (Greenlandic) -- Andiv06
+*  ky (Kyrgyz) -- Andiv06, Valdis Vitolins
+*  lv (Latvian) -- Valdis Vitolins
+*  nog (Nogai) -- Andiv06, boracasli98
+*  qdb (Lang Belta) -- Andiv06
+*  qya (Quenya) -- Andiv06
+*  quc (K'iche') -- Andiv06
+*  ro (Romanian) -- Andiv06
+*  ru (Russian) -- Kirill-jjj, a11cf0
+*  shn (Shan Tay Yai) -- ronaldaug
+*  tk (Turkmen) -- Andiv06
+*  tr (Turkish) -- Gurbuzguven, Qchristensen
+*  uk (Ukrainian) -- Andrij Mizyk
+*  uz (Uzbek) -- Andiv06
+
+new languages:
+*  mto (Totontepec Mixe) -- Bill Dengler, Elizabeth Resendiz
+
 ### 1.51
 
 *  Add support for speechPlayer.

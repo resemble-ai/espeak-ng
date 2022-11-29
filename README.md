@@ -47,7 +47,7 @@ eSpeak NG is available as:
    welcome.
 *  Written in C.
 
-See the [CHANGELOG](CHANGELOG.md) for a description of the changes in the
+See the [ChangeLog](ChangeLog.md) for a description of the changes in the
 various releases and with the eSpeak NG project.
 
 The following platforms are supported:
@@ -134,4 +134,4 @@ The `getopt.c` compatibility implementation for getopt support on Windows is
 taken from the NetBSD `getopt_long` implementation, which is licensed under a
 [2-clause BSD](COPYING.BSD2) license.
 
-Android is a trademark of Google Inc.
+Android is a trademark of Google LLC.

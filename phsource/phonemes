@@ -1675,9 +1675,6 @@ include ph_consonants
 phonemetable base2 base1
 include ph_base2
 
-phonemetable ak base1
-include ph_akan
-
 phonemetable am base1
 include ph_amhari
 
@@ -1814,16 +1811,19 @@ include ph_setswana
 phonemetable tt base1
 include ph_tatar
 
+phonemetable uk base1
+include ph_ukrainian
+
 phonemetable vi base1
 include ph_vietnam
-
-phonemetable wo base1
-include ph_wolof
 
 phonemetable yue base1
 include ph_yue
 
 // *** Tables extending base2 ***
+
+phonemetable be base2
+include ph_belarusian
 
 phonemetable chr base2
 include ph_cherokee
@@ -1852,6 +1852,9 @@ include ph_kurdish
 phonemetable mi base2
 include ph_maori
 
+phonemetable mto base2
+include ph_mixe_mto
+
 phonemetable nci base2
 include ph_nahuatl
 
@@ -1863,9 +1866,6 @@ include ph_klingon
 
 phonemetable ro base2
 include ph_romanian
-
-phonemetable rw base2
-include ph_kinyarwanda
 
 phonemetable tk base2
 include ph_turkmen
@@ -1947,9 +1947,6 @@ include ph_haitian
 phonemetable hi hi_base
 include ph_hindi
 
-phonemetable bo hi
-include ph_tibetan
-
 phonemetable gd base1 // hidden dependency, imports from hi
 include ph_s_gaelic
 
@@ -2025,8 +2022,6 @@ include ph_serbian
 phonemetable ru-lv ru
 include ph_russian_lv
 
-phonemetable uk ru
-
 phonemetable az tr
 include ph_azerbaijani
 
@@ -2056,5 +2051,4 @@ include ph_uzbek
 phonemetable qdb en
 include ph_langbelta
 
-phonemetable be ru
-include ph_belarusian
+phonemetable ms id

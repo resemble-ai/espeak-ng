@@ -36,9 +36,9 @@
 #include <ucd/ucd.h>
 
 #include "soundicon.h" 
+#include "common.h"                // for GetFileLength
 #include "error.h"                // for create_file_error_context
-#include "readclause.h"               // for Read4Bytes
-#include "speech.h"                   // for path_home, GetFileLength, PATHSEP
+#include "speech.h"                   // for path_home, PATHSEP
 #include "synthesize.h"                   // for samplerate
 
 int n_soundicon_tab = 0;
@@ -72,9 +72,7 @@ static espeak_ng_STATUS LoadSoundFile(const char *fname, int index, espeak_ng_ER
 	f = NULL;
 	if ((f = fopen(fname, "rb")) != NULL) {
 		int ix;
-		int fd_temp;
 		int header[3];
-		char command[sizeof(fname2)+sizeof(fname2)+40];
 
 		if (fseek(f, 20, SEEK_SET) == -1) {
 			int error = errno;
@@ -92,14 +90,15 @@ static espeak_ng_STATUS LoadSoundFile(const char *fname, int index, espeak_ng_ER
 
 #ifdef HAVE_MKSTEMP
 			strcpy(fname_temp, "/tmp/espeakXXXXXX");
+			int fd_temp;
 			if ((fd_temp = mkstemp(fname_temp)) >= 0)
 				close(fd_temp);
 #else
 			strcpy(fname_temp, tmpnam(NULL));
 #endif
 
-			sprintf(command, "sox \"%s\" -r %d -c1 -b 16 -t wav %s\n", fname, samplerate, fname_temp);
-			if (system(command) == 0)
+//			sprintf(command, "sox \"%s\" -r %d -c1 -b 16 -t wav %s\n", fname, samplerate, fname_temp);
+//			if (system(command) == 0)
 				fname = fname_temp;
 		}
 	}
