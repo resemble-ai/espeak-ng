@@ -484,7 +484,7 @@ void LookupLetter(Translator *tr, unsigned int letter, int next_byte, char *ph_b
 	int len;
 	char single_letter[10] = { 0, 0 };
 	unsigned int dict_flags[2];
-	char ph_buf3[40];
+	char ph_buf3[N_PHONEME_BYTES];
 
 	ph_buf1[0] = 0;
 	len = utf8_out(letter, &single_letter[2]);
@@ -553,7 +553,7 @@ void LookupLetter(Translator *tr, unsigned int letter, int next_byte, char *ph_b
 
 
 // this list must be in ascending order
-static unsigned short derived_letters[] = {
+static const unsigned short derived_letters[] = {
 	0x00aa, 'a'+L_SUP,
 	0x00b2, '2'+L_SUP,
 	0x00b3, '3'+L_SUP,
@@ -753,7 +753,7 @@ static int hu_number_e(const char *word, int thousandplex, int value)
 	return 0;
 }
 
-int TranslateRoman(Translator *tr, char *word, char *ph_out, WORD_TAB *wtab)
+int TranslateRoman(Translator *tr, char *word, char *ph_out, char *ph_out_end, WORD_TAB *wtab)
 {
 	int c;
 	char *p;
@@ -763,14 +763,13 @@ int TranslateRoman(Translator *tr, char *word, char *ph_out, WORD_TAB *wtab)
 	int value;
 	int subtract;
 	int repeat = 0;
-	int n_digits = 0;
 	char *word_start;
 	int num_control = 0;
 	unsigned int flags[2];
 	char ph_roman[30];
 	char number_chars[N_WORD_BYTES];
 
-	static const char *roman_numbers = "ixcmvld";
+	static const char roman_numbers[] = "ixcmvld";
 	static const int roman_values[] = { 1, 10, 100, 1000, 5, 50, 500 };
 
 	acc = 0;
@@ -791,7 +790,7 @@ int TranslateRoman(Translator *tr, char *word, char *ph_out, WORD_TAB *wtab)
 	}
 
 	word_start = word;
-	while ((c = *word++) != ' ') {
+	while ((c = *word++) != ' ' && c) {
 		if ((p2 = strchr(roman_numbers, c)) == NULL)
 			return 0;
 
@@ -817,7 +816,6 @@ int TranslateRoman(Translator *tr, char *word, char *ph_out, WORD_TAB *wtab)
 		else
 			acc += prev;
 		prev = value;
-		n_digits++;
 	}
 
 	if (IsDigit09(word[0]))
@@ -836,6 +834,8 @@ int TranslateRoman(Translator *tr, char *word, char *ph_out, WORD_TAB *wtab)
 	if ((tr->langopts.numbers & NUM_ROMAN_AFTER) == 0) {
 		strcpy(ph_out, ph_roman);
 		p = &ph_out[strlen(ph_roman)];
+	} else {
+		ph_out_end -= strlen(ph_roman);
 	}
 
 	sprintf(number_chars, "  %d %s    ", acc, tr->langopts.roman_suffix);
@@ -863,7 +863,7 @@ int TranslateRoman(Translator *tr, char *word, char *ph_out, WORD_TAB *wtab)
 
 	tr->prev_dict_flags[0] = 0;
 	tr->prev_dict_flags[1] = 0;
-	TranslateNumber(tr, &number_chars[2], p, flags, wtab, num_control);
+	TranslateNumber(tr, &number_chars[2], p, ph_out_end, flags, wtab, num_control);
 
 	if (tr->langopts.numbers & NUM_ROMAN_AFTER)
 		strcat(ph_out, ph_roman);
@@ -923,8 +923,8 @@ static int LookupThousands(Translator *tr, int value, int thousandplex, int thou
 	int found_value = 0;
 	char string[14];
 	char ph_of[12];
-	char ph_thousands[40];
-	char ph_buf[40];
+	char ph_thousands[N_PHONEME_BYTES];
+	char ph_buf[N_PHONEME_BYTES];
 
 	ph_of[0] = 0;
 
@@ -1202,14 +1202,15 @@ static int LookupNum2(Translator *tr, int value, int thousandplex, const int con
 				sprintf(ph_out, "%s%s%s%s", ph_tens, ph_and, ph_digits, ph_ordinal);
 			used_and = 1;
 		} else {
-			if ((tr->langopts.numbers & NUM_SINGLE_VOWEL) && ph_digits[0] != 0) {
+			if (tr->langopts.numbers & NUM_SINGLE_VOWEL) {
 				// remove vowel from the end of tens if units starts with a vowel (LANG=Italian)
-				ix = strlen(ph_tens) - 1;
-				if ((next_phtype = phoneme_tab[(unsigned int)(ph_digits[0])]->type) == phSTRESS)
-					next_phtype = phoneme_tab[(unsigned int)(ph_digits[1])]->type;
+				if (((ix = strlen(ph_tens)-1) >= 0) && (ph_digits[0] != 0)) {
+					if ((next_phtype = phoneme_tab[(unsigned int)(ph_digits[0])]->type) == phSTRESS)
+						next_phtype = phoneme_tab[(unsigned int)(ph_digits[1])]->type;
 
-				if ((phoneme_tab[(unsigned int)(ph_tens[ix])]->type == phVOWEL) && (next_phtype == phVOWEL))
-					ph_tens[ix] = 0;
+					if ((phoneme_tab[(unsigned int)(ph_tens[ix])]->type == phVOWEL) && (next_phtype == phVOWEL))
+						ph_tens[ix] = 0;
+				}
 			}
 
 			if ((tr->langopts.numbers2 & NUM2_ORDINAL_DROP_VOWEL) && (ph_ordinal[0] != 0)) {
@@ -1269,8 +1270,8 @@ static int LookupNum3(Translator *tr, int value, char *ph_out, bool suppress_nul
 	char string[12]; // for looking up entries in **_list
 	char buf1[100];
 	char buf2[100];
-	char ph_100[20];
-	char ph_10T[20];
+	char ph_100[N_PHONEME_BYTES];
+	char ph_10T[N_PHONEME_BYTES];
 	char ph_digits[50];
 	char ph_thousands[50];
 	char ph_hundred_and[12];
@@ -1465,7 +1466,7 @@ static bool CheckThousandsGroup(char *word, int group_len)
 	return true;
 }
 
-static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, unsigned int *flags, WORD_TAB *wtab, int control)
+static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, char *ph_out_end, unsigned int *flags, WORD_TAB *wtab, int control)
 {
 	//  Number translation with various options
 	// the "word" may be up to 4 digits
@@ -1500,6 +1501,7 @@ static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, unsigned 
 	char ph_zeros[50];
 	char suffix[30]; // string[] must be long enough for sizeof(suffix)+2
 	char buf_digit_lookup[50];
+	char *ph_cur;
 
 	static const char str_pause[2] = { phonPAUSE_NOLINK, 0 };
 
@@ -1683,7 +1685,7 @@ static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, unsigned 
 		if (prev_thousands == 0) {
 			if ((decimal_point == 0) && (ordinal == 0)) {
 				// Look for special pronunciation for this number in isolation (LANG=kl)
-				sprintf(string, "_%dn", value);
+				sprintf(string, "_%ldn", value);
 				if (Lookup(tr, string, ph_out))
 					return 1;
 			}
@@ -1705,10 +1707,11 @@ static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, unsigned 
 
 	LookupNum3(tr, value, ph_buf, suppress_null, thousandplex, prev_thousands | ordinal | decimal_point);
 	if ((thousandplex > 0) && (tr->langopts.numbers2 & NUM2_SWAP_THOUSANDS))
-		sprintf(ph_out, "%s%s%c%s%s", ph_zeros, ph_append, phonEND_WORD, ph_buf2, ph_buf);
+		len = sprintf(ph_out, "%s%s%c%s%s", ph_zeros, ph_append, phonEND_WORD, ph_buf2, ph_buf);
 	else
-		sprintf(ph_out, "%s%s%s%c%s", ph_zeros, ph_buf2, ph_buf, phonEND_WORD, ph_append);
+		len = sprintf(ph_out, "%s%s%s%c%s", ph_zeros, ph_buf2, ph_buf, phonEND_WORD, ph_append);
 
+	ph_cur = ph_out + len;
 
 	while (decimal_point) {
 		n_digits++;
@@ -1727,13 +1730,21 @@ static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, unsigned 
 			// French/Polish decimal fraction
 			while (word[n_digits] == '0') {
 				Lookup(tr, "_0", buf1);
-				strcat(ph_out, buf1);
+				len = strlen(buf1);
+				if (ph_cur + len + 1 > ph_out_end)
+					goto stop;
+				strcpy(ph_cur, buf1);
+				ph_cur += len;
 				decimal_count--;
 				n_digits++;
 			}
 			if ((decimal_count <= max_decimal_count) && IsDigit09(word[n_digits])) {
 				LookupNum3(tr, atoi(&word[n_digits]), buf1, false, 0, 0);
-				strcat(ph_out, buf1);
+				len = strlen(buf1);
+				if (ph_cur + len + 1 > ph_out_end)
+					goto stop;
+				strcpy(ph_cur, buf1);
+				ph_cur += len;
 				n_digits += decimal_count;
 			}
 			break;
@@ -1747,19 +1758,33 @@ static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, unsigned 
 				if (Lookup(tr, string, buf1) == 0)
 					break; // revert to speaking single digits
 
-				if (decimal_mode == NUM_DFRACTION_6)
-					strcat(ph_out, buf1);
-				else
+				if (decimal_mode == NUM_DFRACTION_6) {
+					len = strlen(buf1);
+					if (ph_cur + len + 1 > ph_out_end)
+						goto stop;
+					strcpy(ph_cur, buf1);
+					ph_cur += len;
+				} else
 					strcat(ph_buf, buf1);
 			}
-			strcat(ph_out, ph_buf);
+
+			len = strlen(ph_buf);
+			if (ph_cur + len + 1 > ph_out_end)
+				goto stop;
+			strcpy(ph_cur, ph_buf);
+			ph_cur += len;
+
 			n_digits += decimal_count;
 			break;
 		case NUM_DFRACTION_3:
 			// Romanian decimal fractions
 			if ((decimal_count <= 4) && (word[n_digits] != '0')) {
 				LookupNum3(tr, atoi(&word[n_digits]), buf1, false, 0, 0);
-				strcat(ph_out, buf1);
+				len = strlen(buf1);
+				if (ph_cur + len + 1 > ph_out_end)
+					goto stop;
+				strcpy(ph_cur, buf1);
+				ph_cur += len;
 				n_digits += decimal_count;
 			}
 			break;
@@ -1770,7 +1795,11 @@ static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, unsigned 
 				if (Lookup(tr, string, buf1) == 0)
 					break;
 				n_digits++;
-				strcat(ph_out, buf1);
+				len = strlen(buf1);
+				if (ph_cur + len + 1 > ph_out_end)
+					goto stop;
+				strcpy(ph_cur, buf1);
+				ph_cur += len;
 			}
 		}
 
@@ -1778,20 +1807,36 @@ static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, unsigned 
 			// speak any remaining decimal fraction digits individually
 			value = word[n_digits++] - '0';
 			LookupNum2(tr, value, 0, 2, buf1);
-			len = strlen(ph_out);
-			sprintf(&ph_out[len], "%c%s", phonEND_WORD, buf1);
+
+			len = strlen(buf1);
+			if (ph_cur + 1 + len + 1 > ph_out_end)
+				goto stop;
+			*ph_cur = phonEND_WORD;
+			strcpy(ph_cur + 1, buf1);
+			ph_cur += 1 + len;
 		}
 
 		// something after the decimal part ?
-		if (Lookup(tr, "_dpt2", buf1))
-			strcat(ph_out, buf1);
+		if (Lookup(tr, "_dpt2", buf1)) {
+			len = strlen(buf1);
+			if (ph_cur + len + 1 > ph_out_end)
+				goto stop;
+			strcpy(ph_cur, buf1);
+			ph_cur += len;
+		}
 
 		if ((c == tr->langopts.decimal_sep) && IsDigit09(word[n_digits+1])) {
 			Lookup(tr, "_dpt", buf1);
-			strcat(ph_out, buf1);
+			len = strlen(buf1);
+			if (ph_cur + len + 1 > ph_out_end)
+				goto stop;
+			strcpy(ph_cur, buf1);
+			ph_cur += len;
 		} else
 			decimal_point = 0;
 	}
+
+stop:
 	if ((ph_out[0] != 0) && (ph_out[0] != phonSWITCH)) {
 		int next_char;
 		char *p;
@@ -1802,7 +1847,11 @@ static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, unsigned 
 			utf8_in(&next_char, p);
 
 		if (!iswalpha(next_char) && (thousands_exact == 0))
-			strcat(ph_out, str_pause); // don't add pause for 100s,  6th, etc.
+		{
+			if (ph_cur + strlen(str_pause) + 1 > ph_out_end)
+				ph_cur  = ph_out_end - (strlen(str_pause) + 1);
+			strcpy(ph_cur, str_pause); // don't add pause for 100s,  6th, etc.
+		}
 	}
 
 	*flags |= FLAG_FOUND;
@@ -1813,12 +1862,12 @@ static int TranslateNumber_1(Translator *tr, char *word, char *ph_out, unsigned 
 	return 1;
 }
 
-int TranslateNumber(Translator *tr, char *word1, char *ph_out, unsigned int *flags, WORD_TAB *wtab, int control)
+int TranslateNumber(Translator *tr, char *word1, char *ph_out, char *ph_out_end, unsigned int *flags, WORD_TAB *wtab, int control)
 {
 	if ((option_sayas == SAYAS_DIGITS1) || (wtab[0].flags & FLAG_INDIVIDUAL_DIGITS))
 		return 0; // speak digits individually
 
 	if (tr->langopts.numbers != 0)
-		return TranslateNumber_1(tr, word1, ph_out, flags, wtab, control);
+		return TranslateNumber_1(tr, word1, ph_out, ph_out_end, flags, wtab, control);
 	return 0;
 }

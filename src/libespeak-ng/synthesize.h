@@ -327,6 +327,8 @@ typedef struct {
 
 #define i_StressLevel  0x800
 
+#define LENGTH_MOD_LIMIT 10
+
 typedef struct {
 	int pause_factor;
 	int clause_pause_factor;
@@ -439,7 +441,7 @@ int FormantTransition2(frameref_t *seq, int *n_frames, unsigned int data1, unsig
 
 void Write4Bytes(FILE *f, int value);
 
-#if HAVE_SONIC_H
+#if USE_LIBSONIC
 void DoSonicSpeed(int value);
 #endif
 
@@ -447,7 +449,7 @@ void DoSonicSpeed(int value);
 #define PITCHfall   0  // standard pitch envelopes
 #define PITCHrise   2
 #define N_ENVELOPE_DATA   20
-extern const unsigned char *envelope_data[N_ENVELOPE_DATA];
+extern const unsigned char *const envelope_data[N_ENVELOPE_DATA];
 
 extern int formant_rate[];         // max rate of change of each formant
 extern SPEED_FACTORS speed;

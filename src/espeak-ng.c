@@ -77,6 +77,8 @@ static const char *help_text =
     "\t   Write speech to this WAV file, rather than speaking it directly\n"
     "-b\t   Input text encoding, 1=UTF8, 2=8 bit, 4=16 bit \n"
     "-m\t   Interpret SSML markup, and ignore other < > tags\n"
+    "--ssml-break=<percentage>\n"
+    "\t   Set SSML break time multiplier, default is 100\n"
     "-q\t   Quiet, don't produce any speech (may be useful with -x)\n"
     "-x\t   Write phoneme mnemonics to stdout\n"
     "-X\t   Write phonemes mnemonics and translation trace to stdout\n"
@@ -89,8 +91,10 @@ static const char *help_text =
     "\t   Compile pronunciation rules and dictionary from the current\n"
     "\t   directory, including line numbers for use with -X.\n"
     "\t   <voice name> specifies the language\n"
+#if USE_MBROLA
     "--compile-mbrola=<voice name>\n"
     "\t   Compile an MBROLA voice\n"
+#endif
     "--compile-intonations\n"
     "\t   Compile the intonation data\n"
     "--compile-phonemes=<phsource-dir>\n"
@@ -218,7 +222,7 @@ static int OpenWavFile(char *path, int rate)
 	f_wavfile = NULL;
 	if (path[0] != 0) {
 		if (strcmp(path, "stdout") == 0) {
-#ifdef PLATFORM_WINDOWS
+#ifdef _WIN32
 			// prevent Windows adding 0x0d before 0x0a bytes
 			_setmode(_fileno(stdout), _O_BINARY);
 #endif
@@ -323,10 +327,13 @@ int main(int argc, char **argv)
 		{ "version", no_argument,       0, 0x10b },
 		{ "sep",     optional_argument, 0, 0x10c },
 		{ "tie",     optional_argument, 0, 0x10d },
+#if USE_MBROLA
 		{ "compile-mbrola", optional_argument, 0, 0x10e },
+#endif
 		{ "compile-intonations", no_argument, 0, 0x10f },
 		{ "compile-phonemes", optional_argument, 0, 0x110 },
 		{ "load",    no_argument,       0, 0x111 },
+		{ "ssml-break", required_argument, 0, 0x112 },
 		{ 0, 0, 0, 0 }
 	};
 
@@ -357,6 +364,7 @@ int main(int argc, char **argv)
 	int phoneme_options = 0;
 	int option_linelength = 0;
 	int option_waveout = 0;
+	int ssml_break = -1;
 	bool deterministic = 0;
 	
 	espeak_VOICE voice_select;
@@ -536,6 +544,7 @@ int main(int argc, char **argv)
 			if (phonemes_separator == 'z')
 				phonemes_separator = 0x200d; // ZWJ
 			break;
+#if USE_MBROLA
 		case 0x10e: // --compile-mbrola
 		{
 			espeak_ng_InitializePath(data_path);
@@ -548,6 +557,7 @@ int main(int argc, char **argv)
 			}
 			return EXIT_SUCCESS;
 		}
+#endif
 		case 0x10f: // --compile-intonations
 		{
 			espeak_ng_InitializePath(data_path);
@@ -579,6 +589,9 @@ int main(int argc, char **argv)
 		}
 		case 0x111: // --load
 			flag_load = 1;
+			break;
+		case 0x112: // --ssml-break
+			ssml_break = atoi(optarg2);
 			break;
 		default:
 			exit(0);
@@ -671,6 +684,8 @@ int main(int argc, char **argv)
 		espeak_SetParameter(espeakWORDGAP, wordgap, 0);
 	if (option_linelength > 0)
 		espeak_SetParameter(espeakLINELENGTH, option_linelength, 0);
+	if (ssml_break > 0)
+		espeak_SetParameter(espeakSSML_BREAK_MUL, ssml_break, 0);
 	if (option_punctuation == 2)
 		espeak_SetPunctuationList(option_punctlist);
 
@@ -747,8 +762,8 @@ int main(int argc, char **argv)
 				}
 			}
 			if (ix > 0) {
-				p_text[ix-1] = 0;
-				espeak_Synth(p_text, ix+1, 0, POS_CHARACTER, 0, synth_flags, NULL, NULL);
+				p_text[ix] = 0;
+				espeak_Synth(p_text, ix, 0, POS_CHARACTER, 0, synth_flags, NULL, NULL);
 			}
 		}
 

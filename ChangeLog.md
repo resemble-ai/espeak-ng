@@ -7,17 +7,32 @@
 
 The espeak-ng project is a fork of the espeak project.
 
-### 1.52 (In Development)
+### 1.53.0
+
+new languages:
+*  ps (Pashto) -- Hanif Rahman 
+
+### 1.52.0
+
+attention! this is the last release witch support the autoconf build system. use cmake to compile espeak-ng.
+
+
+*  added cmake build system  -- djphoenix
+*  Added stress marks to phoneme events -- Rotem Dan
+
+bug fixes:
+*  a meny fixes to core C code -- djphoenix
 
 android:
 *  Added directBoot support -- beqabeqa473
+*  Integrated ndk-build step into main gradle pipeline
 
 updated languages:
 *  ba (Bashkir) -- Andiv06
 *  be (Belarusian) -- Andiv06, bespsm, Alaksiej Stankievič
 *  cmn (Mandarin) -- Cameron Wong
 *  en (English) -- Bill Dengler
-*  es (Spanish) -- Sukil Etxenike
+*  es (Spanish) -- Sukil Etxenike, Rmcpantoja, gregodejesus
 *  fa (Persian) -- MH
 *  gn (Guarani) -- Andiv06
 *  he (Hebrew) -- Omer I.S, Andiv06
@@ -39,7 +54,12 @@ updated languages:
 *  uz (Uzbek) -- Andiv06
 
 new languages:
+*  en-Shaw (English, Shavian script) -- Luna Rose
+*  ti (Tigrinya) -- Biniam Gebremichael
 *  mto (Totontepec Mixe) -- Bill Dengler, Elizabeth Resendiz
+*  fo (Faroese) -- Andras Eliassen, iSolveIT ApS and Setur.fo/Ravnur
+*  kaa (Karakalpak) -- atabekm
+*  xex (Xextan) -- Filomena Rocca
 
 ### 1.51
 

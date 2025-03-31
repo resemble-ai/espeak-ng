@@ -38,7 +38,7 @@
 #include "common.h"      // for espeak_rand
 #include "synthesize.h"  // for frame_t, WGEN_DATA, STEPSIZE, N_KLATTP, echo...
 #include "voice.h"       // for voice_t, N_PEAKS
-#ifdef INCLUDE_SPEECHPLAYER
+#if USE_SPEECHPLAYER
 #include "sPlayer.h"
 #endif
 
@@ -68,7 +68,7 @@ static klatt_global_t kt_globals;
 
 #define NUMBER_OF_SAMPLES 100
 
-static int scale_wav_tab[] = { 45, 38, 45, 45, 55, 45 }; // scale output from different voicing sources
+static const int scale_wav_tab[] = { 45, 38, 45, 45, 55, 45 }; // scale output from different voicing sources
 
 // For testing, this can be overwritten in KlattInit()
 static const short natural_samples2[256] = {
@@ -380,16 +380,19 @@ static int parwave(klatt_frame_ptr frame, WGEN_DATA *wdata)
 		if (wdata->mix_wavefile_ix < wdata->n_mix_wavefile) {
 			if (wdata->mix_wave_scale == 0) {
 				// a 16 bit sample
-				c = wdata->mix_wavefile[wdata->mix_wavefile_ix+1];
-				sample = wdata->mix_wavefile[wdata->mix_wavefile_ix] + (c * 256);
+				c = wdata->mix_wavefile[wdata->mix_wavefile_ix+wdata->mix_wavefile_offset+1];
+				sample = wdata->mix_wavefile[wdata->mix_wavefile_ix+wdata->mix_wavefile_offset] + (c * 256);
 				wdata->mix_wavefile_ix += 2;
 			} else {
 				// a 8 bit sample, scaled
-				sample = (signed char)wdata->mix_wavefile[wdata->mix_wavefile_ix++] * wdata->mix_wave_scale;
+				sample = (signed char)wdata->mix_wavefile[wdata->mix_wavefile_offset+wdata->mix_wavefile_ix++] * wdata->mix_wave_scale;
 			}
 			int z2 = sample * wdata->amplitude_v / 1024;
 			z2 = (z2 * wdata->mix_wave_amp)/40;
 			temp += z2;
+
+			if ((wdata->mix_wavefile_ix + wdata->mix_wavefile_offset) >= wdata->mix_wavefile_max)  // reached the end of available WAV data
+				wdata->mix_wavefile_offset -= (wdata->mix_wavefile_max*3)/4;
 		}
 
 		if (kt_globals.fadein < 64) {
@@ -433,7 +436,7 @@ void KlattReset(int control)
 {
 	int r_ix;
 
-#ifdef INCLUDE_SPEECHPLAYER
+#if USE_SPEECHPLAYER
 	KlattResetSP();
 #endif
 
@@ -466,7 +469,7 @@ void KlattReset(int control)
 
 void KlattFini(void)
 {
-#ifdef INCLUDE_SPEECHPLAYER
+#if USE_SPEECHPLAYER
 	KlattFiniSP();
 #endif
 }
@@ -547,7 +550,7 @@ static void frame_init(klatt_frame_ptr frame)
    to Kopen.
  */
 
-static double impulsive_source()
+static double impulsive_source(void)
 {
 	static const double doublet[] = { 0.0, 13000000.0, -13000000.0 };
 	static double vwave;
@@ -567,7 +570,7 @@ static double impulsive_source()
    spectral zero around 800 Hz, magic constants a,b reset pitch synchronously.
  */
 
-static double natural_source()
+static double natural_source(void)
 {
 	double lgtemp;
 	static double vwave;
@@ -859,7 +862,7 @@ static double klattp_inc[N_KLATTP];
 
 int Wavegen_Klatt(int length, int resume, frame_t *fr1, frame_t *fr2, WGEN_DATA *wdata, voice_t *wvoice)
 {
-#ifdef INCLUDE_SPEECHPLAYER
+#if USE_SPEECHPLAYER
 	if(wvoice->klattv[0] == 6)
 	return Wavegen_KlattSP(wdata, wvoice, length, resume, fr1, fr2);
 #endif
@@ -1068,7 +1071,7 @@ static void SetSynth_Klatt(int length, frame_t *fr1, frame_t *fr2, voice_t *wvoi
 	}
 }
 
-void KlattInit()
+void KlattInit(void)
 {
 
 	static const short formant_hz[10] = { 280, 688, 1064, 2806, 3260, 3700, 6500, 7000, 8000, 280 };
@@ -1078,7 +1081,7 @@ void KlattInit()
 
 	int ix;
 
-#ifdef INCLUDE_SPEECHPLAYER
+#if USE_SPEECHPLAYER
 	KlattInitSP();
 #endif
 

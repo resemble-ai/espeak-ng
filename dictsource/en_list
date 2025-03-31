@@ -471,7 +471,7 @@ _0M3	b'Ili@n
 _0M4	tr'Ili@n
 _0M5    kw0dr'Ili@n
 _0M6    kwInt'Ili@n
-_0M7    sExt'Ili@n
+_0M7    sEkst'Ili@n
 _0M8    sEpt'Ili@n
 _0M9    0kt'Ili@n
 _0M10   n0n'Ili@n
@@ -1068,6 +1068,7 @@ banal		beIn@L
 banana		$alt3
 ?3 banana       ba#nan@
 banged		baNgd
+banknote b'aNknoUt
 banquet		baNkwI2t
 barbiturate	bA@b'ItSU@r@t
 barometer	b@r0mI2t3
@@ -1084,6 +1085,7 @@ bass		$alt6 //beIs
 bassist		$alt6 //beIsIst
 baste		$alt6 //beIst
 bastion		basti@n
+bateau ba'toU
 batman		batman
 ?3 baton	$alt3
 battalion	$alt3
@@ -1208,6 +1210,7 @@ bugaboo		bVg@bu:
 ?3 bulimia	bUl'Imi@
 bunion		bVnI2@n
 bureaucracy	bjU@'0kr@si
+burien 'bjU@ri@n $only
 bursar		b3:s3
 ?5 bursar	bVRs3
 bus		bVs
@@ -2382,6 +2385,7 @@ jumbalaya	dZVmb@l'aI|@
 kabaddi		$alt3
 kaboom		$alt3
 kalian		kalj'A:n
+kamala 'kA:m@l@ $only
 kaput		$alt3
 karaoke		karI'oUki
 karat		$alt2
@@ -2459,6 +2463,7 @@ lense		lEnz  // lenses
 leona		li:'oUn@
 leotard		$alt4
 leprechaun	lEpr@kO:n
+leschi 'lESaI
 lesion		li:Z@n
 (les misérables)	leImIzEr'A:bl@-
 lethal		li:T@L
@@ -2693,6 +2698,7 @@ mouthwater	m'aUTw,O:t3  // ing
 movies		mu:vIz
 mozilla		m@zIl@
 mujaheddin	mUdZ@hId'i:n
+mukilteo ,mVk@l'ti:oU
 ?3 multi	mVltaI
 multitude	$1
 multiplexer	$1
@@ -3110,6 +3116,7 @@ purport		$2
 purportedly	$2
 puree		pjU@reI
 ?3 puttin	pU?n
+puyallup pju:'al@p
 pyjama		p@dZA:m@
 pyrites		paIr'aIti:z
 pythagoras	paIT'ag@r@s
@@ -3428,7 +3435,9 @@ shampoo		$2
 shaoni	SaI'oUni
 shareable	Se@@b@L
 sharpie		$alt2
+shavian		$alt6
 shazam		$alt3
+shea S'eI $only
 shebang		SI#baN
 sheepherder	$alt4
 shenanigan	SI#nanIg@n
@@ -3606,6 +3615,7 @@ tabasco		$alt3
 tablet		tabl@t
 taboo		$2
 tabu		tabu:
+tacoma t@'koUm@
 (tae kwon do)	t'aIkw0nd'oU
 taffeta		tafI2t@
 (tai chi)	taI'tSi:
@@ -4542,6 +4552,7 @@ Winnipeg	wInI#pEg
 Wisconsin	wI2sk'0nsI2n
 Wyoming		waI'oUmIN
 Xhosa		kO:s@
+yakima 'jakImA: $only
 Yemen		$alt2
 Ypres		i:pr@
 Yogyakarta	j0gj@k'A@t@
@@ -5764,3 +5775,81 @@ sterile		$alt2
 tensile		$alt2
 virile		$alt2
 ?3 volatile	v0la#t@L
+
+
+
+// Shavian (phonemic alphabet for English)
+// Community Shavian letter names
+𐑐	p'In
+𐑚	b'El
+_𐑑	t'an
+𐑛	d'Vn
+𐑒	k'i:
+𐑜	g'Il
+_𐑓	f'eI
+_𐑝	v'aI
+𐑔	T'O@n
+_𐑞	D'aU
+𐑕	s'i:
+𐑟	z'u:
+𐑖	S'aI
+𐑠	Z'oU
+𐑗	tS'A:
+𐑡	dZ'OI
+𐑘	j'En
+_𐑢	w'eI
+𐑙	s'0N
+𐑣	h'u:
+𐑤	l'am
+𐑮	r'oU
+𐑥	m'i:
+_𐑯	n'aU
+𐑦	'In
+𐑰	'i:v
+𐑧	'EdZ
+𐑱	'eIm
+𐑨	'aS
+_𐑲	'aIz
+_𐑩	@g'oU
+𐑳	'Vp
+𐑪	'0n
+_𐑴	'oUT
+𐑫	'Umf
+_𐑵	'u:z
+𐑬	'aUns
+𐑶	'OIl
+𐑭	'A:mz
+𐑷	'O:t
+_𐑸	'a:ri;@
+_𐑹	'O:r@
+𐑻	'3:rlI
+𐑼	@r'eI
+_𐑽	'i@3ri
+𐑾	'i:;@n
+_𐑿	j'u:l
+
+// Shavian short forms and single letter words
+𐑩	$nounf
+𐑸	%A@		$pastf $only
+𐑲	aI		$u+ $verbf $only
+𐑯	and		$u $pause $only
+𐑞	D@2		$only $nounf
+𐑓	fO@		$u
+𐑽	i@3		$noun
+𐑿	ju:		$u $verbf
+𐑴	'oU
+𐑵	'u:		// "ooh"
+𐑹	O@		$u $pause $only
+𐑝	02v		$u $only
+𐑑	t@5		$verbf $alt7    // @ change to U before vowel
+𐑢	wID		$u   // used sometimes
+
+// Shavian dictionary
+𐑥𐑲	maI 	$u $nounf $strend2
+𐑦𐑯	%In 	$strend $only $nounf
+𐑦𐑟	%Iz 	$pastf $only
+𐑣𐑨𐑛	%had	$pastf $strend2 $only
+𐑖𐑰	Si: 	$u $only $verbsf
+𐑕𐑳𐑥	,sVm	$nounf $unstressend $only
+𐑚𐑳𐑑	,bVt	$pause $only
+𐑢𐑦𐑗	,wItS	$pause $strend2 $only $verbf

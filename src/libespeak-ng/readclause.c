@@ -38,7 +38,6 @@
 
 #include "readclause.h"
 #include "common.h"               // for GetFileLength, strncpy0
-#include "config.h"               // for HAVE_MKSTEMP
 #include "dictionary.h"           // for LookupDictList, DecodePhonemes, Set...
 #include "error.h"                // for create_file_error_context
 #include "phoneme.h"              // for phonSWITCH
@@ -481,7 +480,7 @@ int ReadClause(Translator *tr, char *buf, short *charix, int *charix_top, int n_
 	int c1 = ' '; // current character
 	int c2; // next character
 	int cprev = ' '; // previous character
-	int c_next;
+	int c_next = 0;
 	int parag;
 	int ix = 0;
 	int j;
@@ -610,6 +609,8 @@ int ReadClause(Translator *tr, char *buf, short *charix, int *charix_top, int n_
 					xml_buf[n_xml_buf] = 0;
 					c2 = ' ';
 
+					if (base_voice.identifier)
+						strcpy(current_voice_id, base_voice.identifier);
 					terminator = ProcessSsmlTag(xml_buf, buf, &ix, n_buf, xmlbase, &audio_text, current_voice_id, &base_voice, base_voice_variant_name, &ignore_text, &clear_skipping_text, &sayas_mode, &sayas_start, ssml_stack, &n_ssml_stack, &n_param_stack, (int *)speech_parameters);
 
 					if (terminator != 0) {
@@ -665,7 +666,7 @@ int ReadClause(Translator *tr, char *buf, short *charix, int *charix_top, int n_
 					if (c2 != '1') {
 						// a list of punctuation characters to be spoken, terminated by space
 						j = 0;
-						while (!Eof() && !iswspace(c2)) {
+						while (!Eof() && !iswspace(c2) && (j < N_PUNCTLIST-1)) {
 							option_punctlist[j++] = c2;
 							c2 = GetC();
 							buf[ix++] = ' ';

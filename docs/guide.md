@@ -26,6 +26,10 @@ E.g. for Debian-like distribution (e.g. Ubuntu, Mint, etc.) execute command:
 For RedHat-like distribution (e.g. CentOS, Fedora, etc.) execute command:
 
     sudo yum install espeak-ng
+    
+For ArchLinux-like distribution (e.g. SteamOS, EndeavourOS, etc.) execute command:
+
+    sudo pacman -S espeak-ng
 
 ### Windows
 
@@ -54,7 +58,7 @@ If espeak-ng is built from source code, ensure that `libpulse-dev` package is in
 
     PulseAudio support:            yes
 
-Then recmpile and install espeak-ng aganin.
+Then recompile and install espeak-ng again.
 
 
 ## Problems with pulseaudio

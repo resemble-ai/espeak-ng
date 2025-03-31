@@ -26,9 +26,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include <jni.h>
 
-#include <espeak/speak_lib.h>
+#include <espeak-ng/speak_lib.h>
 #include <Log.h>
 
 #define BUFFER_SIZE_IN_MILLISECONDS 300

@@ -11,13 +11,13 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}-${{ matrix.osver }}
 
-    name: "${{ matrix.os }} ${{ matrix.arch }}: ${{ matrix.compiler }} + ${{ matrix.sanitizer }}"
+    name: "${{ matrix.os }} ${{ matrix.arch }}: ${{ matrix.compiler }} + ${{ matrix.config }}"
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu, macos]
         arch: [amd64, i386, aarch64, arm, riscv64]
-        sanitizer: [no, address, leak, memory, thread, undefined, valgrind]
+        config: [debug, release, release-dyn, asan, lsan, msan, tsan, ubsan, valgrind]
         compiler: [gcc, clang]
 
         include:
@@ -25,12 +25,12 @@ jobs:
             osver: 22.04
             sys: linux-gnu
           - os: macos
-            osver: 12
-            sys: apple-darwin21
+            osver: 14
+            sys: apple-darwin23
           - os: macos
             compiler: clang
-            sys: apple-darwin21.6.0
-          
+            sys: apple-darwin23.6.0
+
           - compiler: clang
             compiler_flags: "-fdebug-default-version=4"
 
@@ -59,29 +59,35 @@ jobs:
             runenv: 'LD_LIBRARY_PATH=/usr/riscv64-linux-gnu/lib:$LD_LIBRARY_PATH'
             cross: yes
 
-          - sanitizer: "address"
-            sanitizer_cflags: "-fsanitize=address"
-            sanitize_env: "ASAN_OPTIONS=detect_leaks=0"
+          - config: "asan"
+            config_cflags: "-fsanitize=address"
+            config_env: "ASAN_OPTIONS=detect_leaks=0"
 
-          - sanitizer: "leak"
-            sanitizer_cflags: "-fsanitize=leak"
-            sanitize_env: "LSAN_OPTIONS=fast_unwind_on_malloc=0"
+          - config: "lsan"
+            config_cflags: "-fsanitize=leak"
+            config_env: "LSAN_OPTIONS=fast_unwind_on_malloc=0"
 
-          - sanitizer: "memory"
+          - config: "msan"
             configenv: "CC=clang CXX=clang++"
-            sanitizer_cflags: "-fsanitize=memory -fsanitize-memory-track-origins=2"
-            config: "--without-pcaudiolib --without-sonic"
-            sanitize_env: "MSAN_OPTIONS=exitcode=42"
+            config_cflags: "-fsanitize=memory -fsanitize-memory-track-origins=2"
+            settings: "-DUSE_LIBPCAUDIO:BOOL=OFF -DUSE_LIBSONIC:BOOL=OFF"
+            config_env: "MSAN_OPTIONS=exitcode=42"
 
-          - sanitizer: "thread"
-            sanitizer_cflags: "-fsanitize=thread"
+          - config: "tsan"
+            config_cflags: "-fsanitize=thread"
 
-          - sanitizer: "undefined"
-            sanitizer_cflags: "-fsanitize=undefined"
-            sanitize_env: "UBSAN_OPTIONS=halt_on_error=1"
+          - config: "ubsan"
+            config_cflags: "-fsanitize=undefined"
+            config_env: "UBSAN_OPTIONS=halt_on_error=1"
 
-          - sanitizer: "valgrind"
-            sanitize_env: 'VALGRIND="libtool --mode=execute valgrind --track-origins=yes --leak-check=full --error-exitcode=1"'
+          - config: "valgrind"
+            config_env: 'VALGRIND="valgrind --track-origins=yes --leak-check=full --error-exitcode=1"'
+
+          - config: "release"
+            settings: "-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo"
+
+          - config: "release-dyn"
+            settings: "-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo -DBUILD_SHARED_LIBS:BOOL=ON"
           
         exclude:
           - os: macos
@@ -93,84 +99,88 @@ jobs:
           - os: macos
             arch: riscv64
 
-          - os: macos
-            sanitizer: valgrind # Not supported on macOS
-
-          - compiler: gcc
-            sanitizer: memory # Not supported by GCC
-
-          - os: macos
-            compiler: clang
-            sanitizer: leak # Not supported by Apple Clang
-          - os: macos
-            compiler: clang
-            sanitizer: memory # Not supported by Apple Clang
+          # fixme
           - os: macos
             compiler: gcc
-            sanitizer: thread # Failing on CI, should be supported?
+
+          - os: macos
+            config: valgrind # Not supported on macOS
+
+          - compiler: gcc
+            config: msan # Not supported by GCC
+
+          - os: macos
+            compiler: clang
+            config: lsan # Not supported by Apple Clang
+          - os: macos
+            compiler: clang
+            config: msan # Not supported by Apple Clang
+          - os: macos
+            compiler: gcc
+            config: tsan # Failing on CI, should be supported?
 
           # Valgrind is unavailable for cross-builds
           - arch: aarch64
-            sanitizer: valgrind
+            config: valgrind
           - arch: arm
-            sanitizer: valgrind
+            config: valgrind
           - arch: riscv64
-            sanitizer: valgrind
+            config: valgrind
 
           # Leak sanitizer is unavailable for cross-builds
           - arch: i386
-            sanitizer: leak
+            config: lsan
           - arch: aarch64
-            sanitizer: leak
+            config: lsan
           - arch: arm
-            sanitizer: leak
+            config: lsan
           - arch: riscv64
-            sanitizer: leak
+            config: lsan
           
           # Thread sanitizer is partially unavailable
           - arch: i386
-            sanitizer: thread
+            config: tsan
           - arch: arm
-            sanitizer: thread
+            config: tsan
           - arch: riscv64
-            sanitizer: thread
+            config: tsan
           - arch: aarch64
             compiler: clang
-            sanitizer: thread
+            config: tsan
 
           # Undefined sanitizer is partially unavailable
           - arch: riscv64
-            sanitizer: undefined
+            config: ubsan
           - arch: arm
             compiler: clang
-            sanitizer: undefined
+            config: ubsan
           - arch: aarch64
             compiler: clang
-            sanitizer: undefined
+            config: ubsan
 
           # Memory sanitizer is partially unavailable
           - arch: i386
-            sanitizer: memory
+            config: msan
           - arch: riscv64
-            sanitizer: memory
+            config: msan
           - arch: arm
-            sanitizer: memory
+            config: msan
           - arch: aarch64
-            sanitizer: memory
+            config: msan
 
           # Address sanitizer is partially unavailable
           - arch: riscv64
-            sanitizer: address
+            config: asan
           - arch: arm
             compiler: clang
-            sanitizer: address
+            config: asan
           - arch: aarch64
             compiler: clang
-            sanitizer: address
+            config: asan
 
           # Disable Thread sanitizer that runs for over 2h on aarch64
           - arch: aarch64
-            sanitizer: thread
+            config: tsan
 
     steps:
 
@@ -183,7 +193,7 @@ jobs:
         sudo apt-get install ronn kramdown python3
     - name: apt-arch-deps
       if: matrix.os == 'ubuntu' && matrix.cross == 'no'
-      run: "sudo apt-get install libtool-bin valgrind g++-12-multilib linux-libc-dev:${{ matrix.arch }} libpcaudio-dev:${{ matrix.arch }} libsonic-dev:${{ matrix.arch }} libstdc++-12-dev:${{ matrix.arch }} libc6-dbg:${{ matrix.arch }}"
+      run: "sudo apt-get install cmake valgrind g++-12-multilib linux-libc-dev:${{ matrix.arch }} libpcaudio-dev:${{ matrix.arch }} libsonic-dev:${{ matrix.arch }} libc6-dbg:${{ matrix.arch }} libgcc-s1:${{ matrix.arch }}"
     - name: apt-cross-deps
       if: matrix.cross == 'yes'
       run: sudo apt-get install qemu-user g++-12-${{ matrix.arch }}-${{ matrix.sys }}
@@ -194,21 +204,15 @@ jobs:
     # MacOS - dependencies
     - name: brew-deps
       if: matrix.os == 'macos'
-      run: brew install libtool automake ronn OJFord/homebrew-formulae/kramdown &&
-           brew install --HEAD anarchivist/espeak-ng/waywardgeek-sonic
+      run: brew install cmake ronn OJFord/homebrew-formulae/kramdown
     - name: brew-compile-deps
       if: matrix.os == 'macos' && matrix.compiler == 'gcc'
       run: brew install gcc@12
 
     # Checkout code
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     # Configure
-    - name: autoconf
-      run: |
-        ./autogen.sh
-        chmod -x INSTALL m4/*.m4
-
     - name: configure
       run: |
         [ 'x${{ matrix.compiler }}' = 'xgcc' ] && export CC="${{ matrix.ccarch }}-${{ matrix.sys }}-gcc-12"
@@ -216,21 +220,23 @@ jobs:
         [ 'x${{ matrix.compiler }}' = 'xclang' ] && export CC="clang --target=${{ matrix.ccarch }}-${{ matrix.sys }}"
         [ 'x${{ matrix.compiler }}' = 'xclang' ] && export CXX="clang++ --target=${{ matrix.ccarch }}-${{ matrix.sys }}"
         [ 'x${{ matrix.cross }}' = 'xyes' ] && export LD="${{ matrix.ccarch }}-${{ matrix.sys }}-ld"
-        export CFLAGS="-g -Og -fno-omit-frame-pointer ${{ matrix.compiler_flags }} ${{ matrix.sanitizer_cflags }} ${{ matrix.archcflags }}"
-        export CXXFLAGS="-g -Og -fno-omit-frame-pointer ${{ matrix.compiler_flags }} ${{ matrix.sanitizer_cflags }} ${{ matrix.archcflags }}"
-        ./configure --host=${{ matrix.arch }}-${{ matrix.sys }} ${{ matrix.config }}
+        export CFLAGS="-g -Og -fno-omit-frame-pointer ${{ matrix.compiler_flags }} ${{ matrix.config_cflags }} ${{ matrix.archcflags }}"
+        export CXXFLAGS="-g -Og -fno-omit-frame-pointer ${{ matrix.compiler_flags }} ${{ matrix.config_cflags }} ${{ matrix.archcflags }}"
+        cmake -Bbuild ${{ matrix.settings }} -DCMAKE_SYSTEM_PROCESSOR=${{ matrix.arch }} -DUSE_ASYNC:BOOL=OFF
 
     - name: config-failed-upload
       if: ${{ failure() }}
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: config-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.compiler }}-${{ matrix.sanitizer }}.log
-        path: config.log
+        name: cmake-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.compiler }}-${{ matrix.config }}-builddir
+        path: build
 
     # Build and test
     - name: make-binary
-      run: make src/speak-ng src/espeak-ng
+      run: cmake --build build --target espeak-ng
     - name: make-data
-      run: ${{ matrix.sanitize_env }} ${{ matrix.runenv }} make all-am
+      run: ${{ matrix.config_env }} ${{ matrix.runenv }} cmake --build build --target data
     - name: test
-      run: ${{ matrix.sanitize_env }} ${{ matrix.runenv }} make check
+      run: |
+        ${{ matrix.config_env }} ${{ matrix.runenv }} cmake --build build --target tests
+        ${{ matrix.config_env }} ${{ matrix.runenv }} ctest --test-dir build -T test -j8 --output-on-failure

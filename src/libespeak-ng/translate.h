@@ -271,7 +271,7 @@ typedef struct {
 typedef struct {
 	const char *name;
 	int offset;
-	unsigned short range_min, range_max;
+	unsigned int range_min, range_max;
 	int language;
 	int flags;
 } ALPHABET;
@@ -669,6 +669,7 @@ void print_dictionary_flags(unsigned int *flags, char *buf, int buf_len);
 
 int TranslateWord(Translator *tr, char *word1, WORD_TAB *wtab, char *word_out);
 void TranslateClause(Translator *tr, int *tone, char **voice_change);
+void TranslateClauseWithTerminator(Translator *tr, int *tone_out, char **voice_change, int *terminator_out);
 
 void SetVoiceStack(espeak_VOICE *v, const char *variant_name);
 

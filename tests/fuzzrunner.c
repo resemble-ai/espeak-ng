@@ -16,6 +16,7 @@
  *             <http://www.gnu.org/licenses/>.
  */
 
+#undef NDEBUG
 #include "config.h"
 #include "common.h"
 
@@ -26,7 +27,7 @@
 
 #include <espeak-ng/espeak_ng.h>
 
-int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size);
+extern int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size);
 
 int main(int argc, char **argv) {
 	int i;
